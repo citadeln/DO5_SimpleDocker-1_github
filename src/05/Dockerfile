@@ -1,6 +1,6 @@
 FROM nginx
 
-WORKDIR /home/nginx
+WORKDIR /home
 
 COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
 COPY ./server.c .
@@ -8,8 +8,7 @@ COPY ./run.sh .
 
 USER nginx
 
-RUN chown -R nginx:nginx /home/nginx && chmod -R 755 /home/nginx && \
-    chown -R nginx:nginx /var/cache/nginx && \
+RUN chown -R nginx:nginx /var/cache/nginx && \
     chown -R nginx:nginx /var/log/nginx && \
     chown -R nginx:nginx /etc/nginx/conf.d && \
     chown -R nginx:nginx /var/lib/dpkg && \
