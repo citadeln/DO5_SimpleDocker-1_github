@@ -10,7 +10,7 @@ USER monroe
 
 RUN adduser --system --no-create-home --disabled-login --group myuser && \
     chown -R myuser /var/ /run/ /var/run/ /var/log/nginx /etc/nginx && \
-    usermod -a -G myuser nginx
+    usermod -a -G monroe nginx
     
 RUN apt-get update \
     && apt-get install -y gcc spawn-fcgi libfcgi-dev \    
