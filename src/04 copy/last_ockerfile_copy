@@ -1,0 +1,27 @@
+FROM nginx
+
+WORKDIR /home
+
+COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
+COPY ./server.c .
+COPY ./run.sh .
+
+RUN apt-get update \
+    && apt-get install -y gcc spawn-fcgi libfcgi-dev \
+    && chmod 777 /etc/nginx \
+    && chmod 777 /etc/nginx/nginx.conf \
+    && chmod 777 run.sh\
+    && touch /var/run/nginx.pid \
+    && service nginx start
+CMD ["./run.sh"]
+
+
+
+
+
+RUN apt-get update \
+    && apt-get install -y gcc spawn-fcgi libfcgi-dev \
+    && chmod +x /var/run/ \
+    && gcc -o server server.c -lfcgi \
+    && nginx -g 'daemon off'
+CMD ["./run.sh"]
