@@ -13,7 +13,7 @@ RUN apt-get update \
 
 USER nginx
 
-RUN chown -R nginx:nginx /home/nginx && chmod -R 755 /home/nginx && \
+RUN chown -R nginx:nginx /home && chmod -R 755 /home && \
     chown -R nginx:nginx /var/cache/nginx && \
     chown -R nginx:nginx /var/log/nginx && \
     chown -R nginx:nginx /etc/nginx/conf.d && \
