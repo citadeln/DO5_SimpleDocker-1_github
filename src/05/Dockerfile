@@ -8,7 +8,7 @@ COPY ./run.sh .
 
 USER nginx
 
-RUN adduser --system --no-create-home --disabled-login --group myuser && \
+RUN sudo adduser --system --no-create-home --disabled-login --group myuser && \
     chown -R myuser /var/ /run/ /var/run/ /var/log/nginx /etc/nginx && \
     usermod -a -G myuser nginx
     
