@@ -9,7 +9,7 @@ IMAGE=$(sudo docker images | awk '/my_docker/{print $3}')
 echo "rm IMAGE - $IMAGE"
 sudo docker image rm $IMAGE
 
-echo -e "\033[32m""\t\tmonrExitedoebu""\033[0m"
+echo -e "\033[32m""\t\tmonredoebu""\033[0m"
 
 
 IMAGE=$(sudo docker images | awk '/none/{print $3}')
