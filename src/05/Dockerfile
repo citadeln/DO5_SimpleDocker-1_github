@@ -1,4 +1,4 @@
-FROM ubuntu/nginx
+FROM nginx
 
 WORKDIR /home/nginx
 
