@@ -6,11 +6,11 @@ COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
 COPY ./server.c .
 COPY ./run.sh .
 
-USER monroe
+USER nginx
 
 RUN adduser --system --no-create-home --disabled-login --group myuser && \
     chown -R myuser /var/ /run/ /var/run/ /var/log/nginx /etc/nginx && \
-    usermod -a -G myuser monroe
+    usermod -a -G myuser nginx
     
 RUN apt-get update \
     && apt-get install -y gcc spawn-fcgi libfcgi-dev \    
