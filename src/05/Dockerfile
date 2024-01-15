@@ -1,21 +1,18 @@
 FROM nginx:latest
 
-WORKDIR /home
-
+COPY server.c .
 COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
-COPY ./server.c .
-COPY ./run.sh .
 
+RUN apt update \
+    && apt upgrade -y \
+    && apt install -y gcc spawn-fcgi libfcgi-dev
 
-RUN adduser --system --no-create-home --disabled-login --group myuser \
-    && chown -R myuser /var/ /run/ /var/run/ /var/log/nginx /etc/nginx \
-    && usermod -a -G myuser nginx
-    
-RUN apt-get update \
-    && apt-get install -y gcc spawn-fcgi libfcgi-dev \    
-    && gcc -o server server.c -lfcgi \
-    && rm -rf /var/lib/apt/lists     
+# Собираем исходники мини-сервера
+RUN gcc server.c -o mini-server -lfcgi
 
-USER nginx
+# Создаем нового пользователя и переключаемся на него
+RUN adduser --system --no-create-home --disabled-login --group monroe && chown -R monroe /var/ /run/ /var/run/ /var/log/nginx /etc/nginx && usermod -a -G monroe nginx
 
-ENTRYPOINT [ "./run.sh" ]
+USER monroe
+
+CMD [ "./run.sh" ]
