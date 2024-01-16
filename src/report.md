@@ -466,7 +466,7 @@ INFO    - CIS-DI-0005: Enable Content trust for Docker
 * **INFO    - CIS-DI-0006: Add HEALTHCHECK instruction to the container image** - инструкция HEALTHCHECK используется для проверки состояния контейнера. В качестве аргументов передается --interval=30s - указывает интервал времени между проверками состояния контейнера;--timeout=3s - указывает максимальное время ожидания ответа от проверки состояния. Далее указывается команда, которая выполняется при каждой проверке состояния.
 
 
-INFO    - CIS-DI-0008: Confirm safety of setuid/setgid files. setuid и setgid, установленные на файлах, используются для подмены (косвенной установки) эффективных идентификаторов процесса. Удаление изображений setuid и setgid разрешений в образах предотвратит атаки с целью повышения привилегий в контейнерах `chmod u-s setuid-file`, `chmod g-s setgid-file`
+* **INFO    - CIS-DI-0008: Confirm safety of setuid/setgid files** -  setuid и setgid, установленные на файлах, используются для подмены (косвенной установки) эффективных идентификаторов процесса. Удаление изображений setuid и setgid разрешений в образах предотвратит атаки с целью повышения привилегий в контейнерах `chmod u-s setuid-file`, `chmod g-s setgid-file`
 
         * setgid file: grwxr-xr-x usr/bin/chage
         * setuid file: urwxr-xr-x usr/bin/umount
