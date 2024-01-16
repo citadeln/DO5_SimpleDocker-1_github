@@ -27,7 +27,7 @@ RUN apt-get update; \
     chmod g-s /usr/bin/wall; \
     rm -rf /var/lib/apt/lists
 
-USER nginx
+USER monroe
 
 ENTRYPOINT [ "./run.sh" ]
 
