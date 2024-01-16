@@ -455,7 +455,7 @@ $ sudo dpkg -i dockle.deb && rm dockle.deb
 
 * **WARN    - CIS-DI-0001: Create a user for the container** - добавила в докерфайл команды USER и в RUN предоставление ему прав. То, что не может найти nginx.pid - это не главная проблема, это ее последствия в виде того, что nginx не смог стартовать. В .pid-файлах хранят просто идентификатор процесса, не более. 2. Для nginx невозможность открыть лог является фатальной ошибкой. Он действительно не может достучаться до файла, и поэтому отказывается стартовать. Для возвращения к нормальной жизни надо либо создать эту папку с необходимыми разрешения доступа, либо в конфиге поправить расположение лога.
 
-* **WARN    - DKL-DI-0006: Avoid latest tag**
+* **WARN    - DKL-DI-0006: Avoid latest tag** - изменила run.sh, стала запускать образ "my_docker:01"
 
 
 
@@ -466,8 +466,8 @@ INFO    - CIS-DI-0005: Enable Content trust for Docker
 * **INFO    - CIS-DI-0006: Add HEALTHCHECK instruction to the container image** - инструкция HEALTHCHECK используется для проверки состояния контейнера. В качестве аргументов передается --interval=30s - указывает интервал времени между проверками состояния контейнера;--timeout=3s - указывает максимальное время ожидания ответа от проверки состояния. Далее указывается команда, которая выполняется при каждой проверке состояния.
 
 
+INFO    - CIS-DI-0008: Confirm safety of setuid/setgid files. Удаление изображений setuid и setgid разрешений в образах предотвратит атаки с целью повышения привилегий в контейнерах `chmod u-s setuid-file`, `chmod g-s setgid-file`
 
-INFO    - CIS-DI-0008: Confirm safety of setuid/setgid files
         * setgid file: grwxr-xr-x usr/bin/chage
         * setuid file: urwxr-xr-x usr/bin/umount
         * setgid file: grwxr-xr-x usr/bin/wall

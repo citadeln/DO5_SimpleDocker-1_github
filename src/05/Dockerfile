@@ -16,7 +16,9 @@ RUN chown -R nginx:nginx /var/cache/nginx && \
 RUN apt-get update \
     && apt-get install -y gcc spawn-fcgi libfcgi-dev \    
     && gcc -o server server.c -lfcgi \
-    && rm -rf /var/lib/apt/lists 
+    && rm -rf /var/lib/apt/lists \
+    && chmod u-s setuid-file \
+    && chmod g-s setgid-file    
 
 USER nginx
 
