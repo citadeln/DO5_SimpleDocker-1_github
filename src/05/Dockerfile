@@ -8,8 +8,7 @@ COPY ./run.sh .
 
 RUN apt-get update; \
     apt-get install -y gcc spawn-fcgi libfcgi-dev; \    
-    gcc -o server server.c -lfcgi; \
-    rm -rf /var/lib/apt/lists; \
+    gcc -o server server.c -lfcgi; \    
     chown -R nginx:nginx /var/cache/nginx; \
     chown -R nginx:nginx /var/log/nginx; \
     touch /var/run/nginx.pid; \
@@ -25,7 +24,8 @@ RUN apt-get update; \
     chmod u-s /usr/bin/passwd; \
     chmod u-s /usr/bin/newgrp; \
     chmod u-s /usr/bin/umount; \
-    chmod g-s /usr/bin/wall 
+    chmod g-s /usr/bin/wall; \
+    rm -rf /var/lib/apt/lists
 
 USER nginx
 
