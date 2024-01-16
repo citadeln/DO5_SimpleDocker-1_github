@@ -474,9 +474,7 @@ $ sudo dpkg -i dockle.deb && rm dockle.deb
 
 * плюс на данном этапе убрала из докерфайла     `&& chown -R nginx:nginx /var/lib/dpkg \`, `&& chown -R nginx:nginx /etc/nginx/conf.d \`, `chmod g-s /usr/sbin/pam_extrausers_chkpwd; \` за отсутствием необходимости
 
-
-
-3. [3. Mini web server](#part-3-mini-web-server)
+![part 5](screenshots/5.2.png)<br>
 
 
 ## 6. Базовый **Docker Compose**
