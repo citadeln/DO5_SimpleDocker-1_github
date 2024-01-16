@@ -18,7 +18,6 @@ RUN apt-get update; \
     chmod u-s /usr/bin/mount; \
     chmod u-s /usr/bin/gpasswd; \
     chmod g-s /usr/bin/chage; \
-    chmod g-s /usr/sbin/pam_extrausers_chkpwd; \
     chmod g-s /usr/sbin/unix_chkpwd; \
     chmod g-s /usr/bin/expiry; \
     chmod u-s /usr/bin/chfn; \

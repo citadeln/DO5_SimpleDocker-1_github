@@ -459,14 +459,9 @@ $ sudo dpkg -i dockle.deb && rm dockle.deb
 
 * **INFO    - CIS-DI-0005: Enable Content trust for Docker** - Docker Content Trust (DCT) предоставляет возможность использовать цифровые подписи для данных, отправляемых и получаемых из удаленных реестров Docker. Эти подписи позволяют проверять целостность и издателя определенных тегов изображений на стороне клиента или во время выполнения.
 
-* **INFO    - CIS-DI-0006: Add HEALTHCHECK instruction to the container image** - инструкция HEALTHCHECK используется для проверки состояния контейнера. В качестве аргументов передается --interval=30s - указывает интервал времени между проверками состояния контейнера;--timeout=3s - указывает максимальное время ожидания ответа от проверки состояния. Далее указывается команда, которая выполняется при каждой проверке состояния.
+* **INFO    - CIS-DI-0006: Add HEALTHCHECK instruction to the container image** - инструкция HEALTHCHECK используется для проверки состояния контейнера, делает ли он всё ещё то, ради чего создавался. В качестве аргументов передается --interval=30s - указывает интервал времени между проверками состояния контейнера;--timeout=3s - указывает максимальное время ожидания ответа от проверки состояния. Далее указывается команда, которая выполняется при каждой проверке состояния.
 
-* **INFO    - CIS-DI-0008: Confirm safety of setuid/setgid files** -  setuid и setgid, установленные на файлах, используются для подмены (косвенной установки) эффективных идентификаторов процесса. Удаление изображений setuid и setgid разрешений в образах предотвратит атаки с целью повышения привилегий в контейнерах `chmod u-s setuid-file`, `chmod g-s setgid-file`
-
-        * setgid file: grwxr-xr-x usr/bin/chage
-        * setuid file: urwxr-xr-x usr/bin/umount
-        * setgid file: grwxr-xr-x usr/bin/wall
-        * setgid file: grwxr-xr-x usr/bin/expiry
+* **INFO    - CIS-DI-0008: Confirm safety of setuid/setgid files** -  setuid и setgid, установленные на файлах, используются для подмены (косвенной установки) эффективных идентификаторов процесса. Удаление изображений setuid и setgid разрешений в образах предотвратит атаки с целью повышения привилегий в конделает ли он всё ещё то, ради чего создавалсяxr-xr-x usr/bin/expiry
         * setuid file: urwxr-xr-x usr/bin/chfn
         * setgid file: grwxr-xr-x usr/sbin/unix_chkpwd
         * setuid file: urwxr-xr-x usr/bin/gpasswd
@@ -477,7 +472,7 @@ $ sudo dpkg -i dockle.deb && rm dockle.deb
         * setuid file: urwxr-xr-x usr/bin/su
         * setgid file: grwxr-xr-x usr/sbin/pam_extrausers_chkpwd
 
-* плюс на данном этапе убрала из докерфайла     `&& chown -R nginx:nginx /var/lib/dpkg \` `&& chown -R nginx:nginx /etc/nginx/conf.d \` за отсутствием необходимости
+* плюс на данном этапе убрала из докерфайла     `&& chown -R nginx:nginx /var/lib/dpkg \`, `&& chown -R nginx:nginx /etc/nginx/conf.d \`, `chmod g-s /usr/sbin/pam_extrausers_chkpwd; \` за отсутствием необходимости
 
 
 
