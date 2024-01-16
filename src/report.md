@@ -482,7 +482,7 @@ INFO    - CIS-DI-0005: Enable Content trust for Docker
         * setuid file: urwxr-xr-x usr/bin/su
         * setgid file: grwxr-xr-x usr/sbin/pam_extrausers_chkpwd
 
-* плюс на данном этапе убрала из докерфайла     `&& chown -R nginx:nginx /var/lib/dpkg \` за отсутствием необходимости
+* плюс на данном этапе убрала из докерфайла     `&& chown -R nginx:nginx /var/lib/dpkg \` `&& chown -R nginx:nginx /etc/nginx/conf.d \` за отсутствием необходимости
 
 
 
