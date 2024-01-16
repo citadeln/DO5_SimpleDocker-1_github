@@ -17,6 +17,7 @@ USER nginx
 
 RUN apt-get update \
     && apt-get install -y gcc spawn-fcgi libfcgi-dev \    
-    && gcc -o server server.c -lfcgi 
+    && gcc -o server server.c -lfcgi \
+    && rm -rf /var/lib/apt/lists 
 
 ENTRYPOINT [ "./run.sh" ]
