@@ -9,10 +9,10 @@ COPY ./run.sh .
 RUN apt-get update; \
     apt-get install -y gcc spawn-fcgi libfcgi-dev; \    
     gcc -o server server.c -lfcgi; \    
-    chown -R nginx:nginx /var/cache/nginx; \
-    chown -R nginx:nginx /var/log/nginx; \
+    chown -R monroe:monroe /var/cache/nginx; \
+    chown -R monroe:monroe /var/log/nginx; \
     touch /var/run/nginx.pid; \
-    chown -R nginx:nginx /var/run/nginx.pid; \
+    chown -R monroe:monroe /var/run/nginx.pid; \
     chmod u-s /usr/bin/su; \
     chmod u-s /usr/bin/mount; \
     chmod u-s /usr/bin/gpasswd; \
