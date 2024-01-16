@@ -449,15 +449,11 @@ $ sudo dpkg -i dockle.deb && rm dockle.deb
 
 2. Исправить образ так, чтобы при проверке через **dockle** не было ошибок и предупреждений
 
-* **FATAL - CIS-DI-0010: Do not store credential in environment variables/files** - исправила, взяв не оригинальный nginx, который использует переменные окружения, а ubuntu/nginx
+* **FATAL - CIS-DI-0010: Do not store credential in environment variables/files** - исправила, взяв не оригинальный nginx, который использует переменные окружения, а ubuntu/nginx. Но тогда появляются проблемы при создании пользователя (исправлении ошибки CIS-DI-0001). Как вариант решения, подсказывали  переписать образ - т.е. собрать с нуля через докерфайл, не из nginx:latest, а из совсем базового тип alpine, ubi или ещё какого-нибудь. Поэтому остановилась на варианте запускать dockle с флагом `dockle -i CIS-DI-0010 [image_name]:[image_tag]`.
 
 * **FATAL   - DKL-DI-0005: Clear apt-get caches** - добавила `rm -rf /var/lib/apt/lists` after `apt-get install|update` в докерфайл. Если понадобится внутри контейнера сделать curl localhost:81, то сперва запустить две команды: `apt update && apt install curl`.
 
-* **WARN    - CIS-DI-0001: Create a user for the container**
-
-    1) удалить userдирективу (первая строка файла) nginx.confфайла
-
-    2)
+* **WARN    - CIS-DI-0001: Create a user for the container** - добавила в докерфайл команды USER и в RUN предоставление ему прав. 
 
 
         * Last user should not be root
