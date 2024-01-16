@@ -453,16 +453,20 @@ $ sudo dpkg -i dockle.deb && rm dockle.deb
 
 * **FATAL   - DKL-DI-0005: Clear apt-get caches** - добавила `rm -rf /var/lib/apt/lists` after `apt-get install|update` в докерфайл. Если понадобится внутри контейнера сделать curl localhost:81, то сперва запустить две команды: `apt update && apt install curl`.
 
-* **WARN    - CIS-DI-0001: Create a user for the container** - добавила в докерфайл команды USER и в RUN предоставление ему прав. 
+* **WARN    - CIS-DI-0001: Create a user for the container** - добавила в докерфайл команды USER и в RUN предоставление ему прав. То, что не может найти nginx.pid - это не главная проблема, это ее последствия в виде того, что nginx не смог стартовать. В .pid-файлах хранят просто идентификатор процесса, не более. 2. Для nginx невозможность открыть лог является фатальной ошибкой. Он действительно не может достучаться до файла, и поэтому отказывается стартовать. Для возвращения к нормальной жизни надо либо создать эту папку с необходимыми разрешения доступа, либо в конфиге поправить расположение лога.
+
+* **WARN    - DKL-DI-0006: Avoid latest tag**
 
 
-        * Last user should not be root
-WARN    - DKL-DI-0006: Avoid latest tag
-        * Avoid 'latest' tag
+
 INFO    - CIS-DI-0005: Enable Content trust for Docker
         * export DOCKER_CONTENT_TRUST=1 before docker pull/build
-INFO    - CIS-DI-0006: Add HEALTHCHECK instruction to the container image
-        * not found HEALTHCHECK statement
+
+
+* **INFO    - CIS-DI-0006: Add HEALTHCHECK instruction to the container image** - инструкция HEALTHCHECK используется для проверки состояния контейнера. В качестве аргументов передается --interval=30s - указывает интервал времени между проверками состояния контейнера;--timeout=3s - указывает максимальное время ожидания ответа от проверки состояния. Далее указывается команда, которая выполняется при каждой проверке состояния.
+
+
+
 INFO    - CIS-DI-0008: Confirm safety of setuid/setgid files
         * setgid file: grwxr-xr-x usr/bin/chage
         * setuid file: urwxr-xr-x usr/bin/umount

@@ -427,15 +427,64 @@ echo -e "\033[32m""\t\tmonroebu""\033[0m"
 
 ## 5. **Dockle**
 
-После написания образа никогда не будет лишним проверить его на безопасность.
+После написания образа проверить его на безопасность.
 
-**== Задание ==**
+0. Установка
+```
+$ VERSION=$(
+ curl --silent "https://api.github.com/repos/goodwithtech/dockle/releases/latest" | \
+ grep '"tag_name":' | \
+ sed -E 's/.*"v([^"]+)".*/\1/' \
+) && curl -L -o dockle.deb https://github.com/goodwithtech/dockle/releases/download/v${VERSION}/dockle_${VERSION}_Linux-64bit.deb
+$ sudo dpkg -i dockle.deb && rm dockle.deb
+```
 
-##### Просканировать образ из предыдущего задания через `dockle [image_id|repository]`
-##### Исправить образ так, чтобы при проверке через **dockle** не было ошибок и предупреждений
+1. Просканировать образ из предыдущего задания через `dockle [image_id|repository]`
+
+![part 5](screenshots/5.1.dockle.png)<br>
+
+Под термином `Healthcheck` следует понимать способ проверки рабочего состояния ресурса. Он определяет состояние запущенного в Docker контейнера.
+
+Создаваемая команда Healthcheck определяет возможность тестирования контейнера, чтобы убедиться в его работоспособности. Docker без Healthcheck не сможет определить, действительно ли запущены работающие в контейнере службы.
+
+2. Исправить образ так, чтобы при проверке через **dockle** не было ошибок и предупреждений
+
+* **FATAL - CIS-DI-0010: Do not store credential in environment variables/files** - исправила, взяв не оригинальный nginx, который использует переменные окружения, а ubuntu/nginx. Но тогда появляются проблемы при создании пользователя (исправлении ошибки CIS-DI-0001). Как вариант решения, подсказывали  переписать образ - т.е. собрать с нуля через докерфайл, не из nginx:latest, а из совсем базового тип alpine, ubi или ещё какого-нибудь. Поэтому остановилась на варианте запускать dockle с флагом `dockle -i CIS-DI-0010 [image_name]:[image_tag]`.
+
+* **FATAL   - DKL-DI-0005: Clear apt-get caches** - добавила `rm -rf /var/lib/apt/lists` after `apt-get install|update` в докерфайл. Если понадобится внутри контейнера сделать curl localhost:81, то сперва запустить две команды: `apt update && apt install curl`.
+
+* **WARN    - CIS-DI-0001: Create a user for the container** - добавила в докерфайл команды USER и в RUN предоставление ему прав. 
+
+
+        * Last user should not be root
+WARN    - DKL-DI-0006: Avoid latest tag
+        * Avoid 'latest' tag
+INFO    - CIS-DI-0005: Enable Content trust for Docker
+        * export DOCKER_CONTENT_TRUST=1 before docker pull/build
+INFO    - CIS-DI-0006: Add HEALTHCHECK instruction to the container image
+        * not found HEALTHCHECK statement
+INFO    - CIS-DI-0008: Confirm safety of setuid/setgid files
+        * setgid file: grwxr-xr-x usr/bin/chage
+        * setuid file: urwxr-xr-x usr/bin/umount
+        * setgid file: grwxr-xr-x usr/bin/wall
+        * setgid file: grwxr-xr-x usr/bin/expiry
+        * setuid file: urwxr-xr-x usr/bin/chfn
+        * setgid file: grwxr-xr-x usr/sbin/unix_chkpwd
+        * setuid file: urwxr-xr-x usr/bin/gpasswd
+        * setuid file: urwxr-xr-x usr/bin/mount
+        * setuid file: urwxr-xr-x usr/bin/newgrp
+        * setuid file: urwxr-xr-x usr/bin/chsh
+        * setuid file: urwxr-xr-x usr/bin/passwd
+        * setuid file: urwxr-xr-x usr/bin/su
+        * setgid file: grwxr-xr-x usr/sbin/pam_extrausers_chkpwd
+
+
 3. [3. Mini web server](#part-3-mini-web-server)
 
+
 ## 6. Базовый **Docker Compose**
+
+![part 6](screenshots/6.yml.png)<br>
 
 Вот вы и закончили вашу разминку. А хотя погодите...
 Почему бы не поэкспериментировать с развёртыванием проекта, состоящего сразу из нескольких докер образов?
