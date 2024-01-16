@@ -6,14 +6,14 @@ COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
 COPY ./server.c .
 COPY ./run.sh .
 
-RUN apt-get update \
-    && apt-get install -y gcc spawn-fcgi libfcgi-dev \    
-    && gcc -o server server.c -lfcgi \
-    && rm -rf /var/lib/apt/lists \
-    && chown -R nginx:nginx /var/cache/nginx \
-    && chown -R nginx:nginx /var/log/nginx \
-    && touch /var/run/nginx.pid \
-    && chown -R nginx:nginx /var/run/nginx.pid; \
+RUN apt-get update; \
+    apt-get install -y gcc spawn-fcgi libfcgi-dev; \    
+    gcc -o server server.c -lfcgi; \
+    rm -rf /var/lib/apt/lists; \
+    chown -R nginx:nginx /var/cache/nginx; \
+    chown -R nginx:nginx /var/log/nginx; \
+    touch /var/run/nginx.pid; \
+    chown -R nginx:nginx /var/run/nginx.pid; \
     chmod u-s /usr/bin/su; \
     chmod u-s /usr/bin/mount; \
     chmod u-s /usr/bin/gpasswd; \
