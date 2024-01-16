@@ -457,14 +457,9 @@ $ sudo dpkg -i dockle.deb && rm dockle.deb
 
 * **WARN    - DKL-DI-0006: Avoid latest tag** - изменила run.sh, стала запускать образ "my_docker:01"
 
-
-
-INFO    - CIS-DI-0005: Enable Content trust for Docker
-        * export DOCKER_CONTENT_TRUST=1 before docker pull/build
-
+* **INFO    - CIS-DI-0005: Enable Content trust for Docker** - Docker Content Trust (DCT) предоставляет возможность использовать цифровые подписи для данных, отправляемых и получаемых из удаленных реестров Docker. Эти подписи позволяют проверять целостность и издателя определенных тегов изображений на стороне клиента или во время выполнения.
 
 * **INFO    - CIS-DI-0006: Add HEALTHCHECK instruction to the container image** - инструкция HEALTHCHECK используется для проверки состояния контейнера. В качестве аргументов передается --interval=30s - указывает интервал времени между проверками состояния контейнера;--timeout=3s - указывает максимальное время ожидания ответа от проверки состояния. Далее указывается команда, которая выполняется при каждой проверке состояния.
-
 
 * **INFO    - CIS-DI-0008: Confirm safety of setuid/setgid files** -  setuid и setgid, установленные на файлах, используются для подмены (косвенной установки) эффективных идентификаторов процесса. Удаление изображений setuid и setgid разрешений в образах предотвратит атаки с целью повышения привилегий в контейнерах `chmod u-s setuid-file`, `chmod g-s setgid-file`
 
