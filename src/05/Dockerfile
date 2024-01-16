@@ -32,4 +32,4 @@ USER nginx
 
 ENTRYPOINT [ "./run.sh" ]
 
-HEALTHCHECK --interval=30s --timeout=3s CMD curl http://localhost/ || exit 1
+HEALTHCHECK --interval=30s --timeout=3s CMD curl localhost:81 || exit 1
