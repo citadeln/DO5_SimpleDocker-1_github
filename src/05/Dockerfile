@@ -13,11 +13,11 @@ RUN chown -R nginx:nginx /var/cache/nginx && \
     touch /var/run/nginx.pid && \
     chown -R nginx:nginx /var/run/nginx.pid
 
-USER nginx
-
 RUN apt-get update \
     && apt-get install -y gcc spawn-fcgi libfcgi-dev \    
     && gcc -o server server.c -lfcgi \
     && rm -rf /var/lib/apt/lists 
+
+USER nginx
 
 ENTRYPOINT [ "./run.sh" ]
