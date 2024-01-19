@@ -21,3 +21,4 @@ sudo docker cp ../03/nginx/nginx.conf silly_napier:/etc/nginx/
 sudo docker cp ../03/server.c silly_napier:/home/
 sudo docker cp ../03/server.v.2.c silly_napier:/home/
 
+https://telemost.yandex.ru/j/24828506483980
